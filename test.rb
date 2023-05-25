@@ -1,21 +1,30 @@
-def sqrt(a)
-  begin
-  if a > 0
-  Math.sqrt(a).round(4)
-  else
-    raise StandardError
+class Pizza
+  @@count = 0
+  @@fail_count = 0
+
+  def initialize(d, ingredients)
+    if d == 25 || d == 50
+      @d = d
+      @ingredients = ingredients
+      @@count += 1
+      @number = @@count
+    else
+      @d = 0
+      @ingredients = []
+      @number = 0
+      @@fail_count += 1
+    end
   end
-  rescue StandardError
-    puts "The root of a negative number does not exist in rational numbers"
+
+  def description
+    if @d != 0
+      "Піца № #{@number} (діагональ = #{@d}) містить [#{@ingredients.join(', ')}]."
+    else
+      "Піца № 0 (діагональ = 0) містить []."
+    end
+  end
+
+  def self.failInstance
+    @@fail_count
   end
 end
-
-#
-# def sqrt(a)
-#   catch :err do
-#     puts Math.sqrt(a).round(4)
-#     throw :err
-#     puts "The root of a negative number does not exist in rational numbers" if a < 0
-#   end
-# end
-# puts sqrt(-4)
